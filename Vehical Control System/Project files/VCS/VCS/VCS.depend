@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1697749526 source:c:\users\atef\desktop\nti\c\projects\vcs\vcs\main.c
+	<stdio.h>
+	<stdlib.h>
+	"vcs.h"
+
+1697749592 c:\users\atef\desktop\nti\c\projects\vcs\vcs\vcs.h
+
+1697751718 source:c:\users\atef\desktop\nti\c\projects\vcs\vcs\vcs.c
+	"vcs.h"
+
