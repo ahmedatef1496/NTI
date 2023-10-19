@@ -9,4 +9,4 @@
   
 
    ## Simulation Design
-![SimulationDesign]((https://github.com/ahmedatef1496/NTI/blob/main/Library%20Management%20System/pic/lms_db.PNG)https://github.com/ahmedatef1496/NTI/blob/main/Library%20Management%20System/pic/lms_db.PNG)
+![Data Base](https://github.com/ahmedatef1496/NTI/blob/main/Library%20Management%20System/pic/lms_db.PNG)https://github.com/ahmedatef1496/NTI/blob/main/Library%20Management%20System/pic/lms_db.PNG)
