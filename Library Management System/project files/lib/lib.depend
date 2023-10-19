@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1697674796 source:c:\users\atef\desktop\nti\lib\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	"library.h"
+
+1697676378 source:c:\users\atef\desktop\nti\lib\library.c
+
+1697673990 c:\users\atef\desktop\nti\lib\library.h
+
