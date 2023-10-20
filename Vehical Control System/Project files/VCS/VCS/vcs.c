@@ -134,13 +134,16 @@ void SetEnginTemp(struct Sensors *s,struct vcs *v)
 
 void UpdateState (struct Sensors *s,struct vcs *v)
 {
-    if(v->speed==3&&v->ACState==OFF)
+     float x=1.25;
+    if(v->speed==30&&v->ACState==OFF)
     {
         v->ACState = ON;
-        s->RT *= ((5/4)+1);
+        s->RT = ((s->RT*x)+1);
+           //s->RT = 40;
 
         v->EnginTempC= ON;
-        s->ET *= ((5/4)+1);
+      //  printf("%d",s->ET);
+        s->ET =((s->ET*1.25)+1);
     }
 }
 
