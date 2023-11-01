@@ -32,9 +32,9 @@
 	INPULL,		 /* Port C Pin 5 */
 	OUTPUT,		 /* Port C Pin 6 */
 	OUTPUT,		 /* Port C Pin 7 */
-	INFREE,		 /* Port D Pin 0 */
+	OUTPUT,		 /* Port D Pin 0 */
 	OUTPUT,		 /* Port D Pin 1 */
-    INFREE,      /* Port D Pin 2 /INT0*/
+    OUTPUT,      /* Port D Pin 2 /INT0*/
 	OUTPUT,      /* Port D Pin 3 / INT1 */
 	OUTPUT,		 /* Port D Pin 4  OC1B*/
 	OUTPUT,		 /* Port D Pin 5 OC1A*/

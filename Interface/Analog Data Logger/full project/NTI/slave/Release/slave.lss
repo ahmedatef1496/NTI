@@ -110,8 +110,8 @@ Disassembly of section .text:
   b4:	bf 93       	push	r27
   b6:	ef 93       	push	r30
   b8:	ff 93       	push	r31
-  ba:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__data_end>
-  be:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__data_end+0x1>
+  ba:	e0 91 60 00 	lds	r30, 0x0060	; 0x800060 <__DATA_REGION_ORIGIN__>
+  be:	f0 91 61 00 	lds	r31, 0x0061	; 0x800061 <__DATA_REGION_ORIGIN__+0x1>
   c2:	30 97       	sbiw	r30, 0x00	; 0
   c4:	09 f0       	breq	.+2      	; 0xc8 <__vector_16+0x30>
   c6:	09 95       	icall

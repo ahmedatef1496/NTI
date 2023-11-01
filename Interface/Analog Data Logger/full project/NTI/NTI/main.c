@@ -7,38 +7,30 @@
 #include "app/app.h"
 void f1 ();
 void f2 ();
-u8 flag=0,data[5][20],Total_C=0;
+u8 flag=0,data[5][20],Total_C=0,alarm_flag1=0,alarm_flag3=0,alarm_flag2=0;
 u8 string [20]="first",string2[20]="second",ch='A';
 void uartTspi();
-
+void RUN_EX()
+{
+			DIO_writepin(PIND2,HIGH);
+ 			//	_delay_ms(1);
+ 			//	DIO_writepin(PIND2,LOW);
+}
+void CLOSE_EX()
+{  
+	DIO_writepin(PIND2,LOW);
+	if (alarm_flag1==0&&alarm_flag2==0&&alarm_flag3==0)
+	{
+		DIO_writepin(PIND0,LOW);
+	}
+	
+}
 void adc()
 {   u8 tempflag=0;
 	u16 S ;
 	static i=5;
 	
 	u8 adc_read =ADC_Read_NB();
-	
-//	lm1 =(u16)(((u32)adc_read*150*5)/(1023*1.5));
-	
-//  	if(lm1>70)
-// 	{
-// 		tempflag=2;
-// 				LCD_SetCursor(1,0);
-// 				LCD_WriteString("case2");
-// 	}
-// 	else if (lm1>45&&lm1<70)
-// 	{
-// 		tempflag=1;
-// 				LCD_SetCursor(1,0);
-// 				LCD_WriteString("case1");
-// 
-// 	}
-// 	else if(lm1<45)
-// 	{
-// 		tempflag=0;
-// 		LCD_SetCursor(1,0);
-// 		LCD_WriteString("case0");
-// 	}
 if (i==5)
 {  
 	
@@ -50,11 +42,19 @@ if (i==5)
 			LCD4_SetCursor(3,0);
 			LCD_WriteString("S1");
 			DIO_writepin(PINB5,HIGH);
+			alarm_flag1=1;
+			 RUN_EX();
+
 	}
 	else
-	{
+	{ 
+		alarm_flag1=0;
 		LCD4_ClearLoc(3,0,6);
 		DIO_writepin(PINB5,LOW);
+
+			CLOSE_EX();
+		
+		
 	}
 	LCD_SetCursor(0,0);
 	LCD_WriteString("S1: ");
@@ -68,15 +68,19 @@ else if(i==6)
 	ADC_InterruptDisable();
 	S =(u16)(((u32)adc_read*150*5)/(1023*1.5));
 		if (S>50)
-		{
+		{ 
+			alarm_flag2=1;
 			LCD4_SetCursor(3,8);
 			LCD_WriteString("S2");
 			DIO_writepin(PINB6,HIGH);
+			 RUN_EX();
 		}
 		else
-		{
+		{ 
+			alarm_flag2=0;
 			LCD4_ClearLoc(3,7,6);
 			DIO_writepin(PINB6,LOW);
+			CLOSE_EX();
 		}
 	LCD_SetCursor(0,7);
 	LCD_WriteString("S2: ");
@@ -89,15 +93,19 @@ else if(i==7)
 	 ADC_InterruptDisable();
 	S =(u16)(((u32)adc_read*150*5)/(1023*1.5));
 			if (S>50)
-			{
+			{ 
+				alarm_flag3=1;
 				LCD4_SetCursor(3,16);
 				LCD_WriteString("S3");
 				DIO_writepin(PINB7,HIGH);
+				 RUN_EX();
 			}
 			else
-			{
+			{ 
+				alarm_flag3=0;
 				LCD4_ClearLoc(3,14,6);
 				DIO_writepin(PINB7,LOW);
+				CLOSE_EX();
 			}
 	LCD4_SetCursor(0,14);
 	LCD_WriteString("S3: ");
@@ -109,6 +117,20 @@ else if(i==7)
      adc_channel(i);
 	ADC_StartConversionNB();
 }
+void ex_callback()
+{
+			DIO_writepin(PIND0,HIGH);
+
+// 	if (alarm_flag==1)
+// 	{
+// 		DIO_writepin(PIND0,HIGH);
+// 	}
+// 	else if (alarm_flag==0)
+// 	{
+// 		DIO_writepin(PIND0,LOW);
+// 	}
+	
+}
 int main(void)
 {
  //uartTspi();
@@ -116,25 +138,23 @@ int main(void)
 	 	DIO_Init();
 	 	LCD_Init();
    GLOBALE_ENABLE();
-
-	ADC_Init(VREF_VCC,ADC_SCALER_64);
-	ADC_SetCallBack(adc);
-	ADC_InterruptEnable();
-	adc_channel(CH_5);
-	ADC_StartConversionNB();
-	while(1)
-	{ 
-		
-	
-// 		LCD_SetCursor(0,0);
-// 		LCD_WriteNumber(i);
-// 		
-// 		_delay_ms(10);
-// 		i++;
-// 	
-	
-	
-	}
+   ADC_Init(VREF_VCC,ADC_SCALER_64);
+   EXI_Enable(EX_INT0);
+   EXI_TriggerEdge(EX_INT0,RISING_EDGE);
+   EXI_SetCallBack(EX_INT0,ex_callback);
+    DIO_writepin(PIND2,LOW);
+   ADC_SetCallBack(adc);
+   ADC_InterruptEnable();
+   adc_channel(CH_5);
+   ADC_StartConversionNB();
+   while(1)
+   {
+	   
+	   
+	   
+	   
+	   
+   }
 	 
 	 
  	//eeprom_test_string();

@@ -233,7 +233,7 @@ void eeprom_test(void)
 void eeprom_test_string(void)
 {
 	u8 val = 0;
-	u8 string1[10]="atef";
+	u8 string1[10]="Atef";
 	u8 string2[10];
 	
 // 	DDRD  = 0xFF;
@@ -241,6 +241,8 @@ void eeprom_test_string(void)
 // 	DDRB  = 0xFF;
 // 	PORTB = 0x00;
 	LCD_SetCursor(0,0);
+	LCD_WriteString("i sent to   0x000C");
+	LCD_SetCursor(1,0);
 	LCD_WriteString(string1);
 	//LCD_WriteNumber(val);
 	
@@ -248,10 +250,12 @@ void eeprom_test_string(void)
 	
 	eeprom_WriteString(0x000C,string1);
 	_delay_ms(10);
-	eeprom_ReadString(0x000C,string2);
+	eeprom_ReadString(0x0011,string2);
 	
-	LCD_SetCursor(1,0);
-	LCD_WriteString(string2);
+		LCD4_SetCursor(2,0);
+		LCD_WriteString("i read from 0x0011");
+		LCD4_SetCursor(3,0);
+		LCD_WriteString(string2);
 	//LCD_WriteNumber(val);
 	
 	while(1)
