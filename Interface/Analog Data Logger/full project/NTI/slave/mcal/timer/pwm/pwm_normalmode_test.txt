@@ -1,0 +1,150 @@
+/*
+ * test-planet.c
+ *
+ * Created: 4/13/2023 6:41:03 AM
+ * Author : atef
+ */ 
+
+#include "app.h"
+ #define  Micro_seconds   1000000
+#define   PWM_PRESCALER   8
+#define   TIMER0_COUNTER_SIZE  256
+#define   PWM_PIN1       PINB1
+#define   PWM_PIN2       PINB2
+#define   PWM_PIN3       PINB3
+#define   factor         1000
+
+void eeprom_test (void);
+void eeprom_test_string(void);
+void eeprom_test_256(void);
+void eeprom_test_string_256(void);
+
+
+void PWM_G_1();
+void PWM_Calac(u8 u8_DutyCycle,u32 u32_Freq);
+void PWM_Multi_G();
+u32  g_u32_ONTicks=0  ,g_u32_OFFTicks=0,g_u32_ONOVS=0  ,g_u32_OFFOVS=0,g_counter_offset_OFF=0,g_counter_offset_ON=0     ;
+int main(void)
+{ 
+  GLOBALE_ENABLE();
+    DIO_Init_All();
+ 	LCD_PinsInit ();
+ 	LCD_Init();
+    TIMER0_Init(TIMER0_NORMAL_MODE);
+	TIMER0_OV_SetCallBack(PWM_G_1);
+	TIMER0_OV_InterruptEnable();
+   LCD_SetCursor(0,0);
+   LCD_WriteString("PWM"); 
+  PWM_Calac(50,50000);
+  timer_start(TIMER0_SCALER_8);
+  while(1)
+  {
+		
+  }
+
+
+	return 0;
+} 
+
+
+void PWM_G_1()
+{  
+	static u32 OV=0;
+	OV++;
+	if (OV==(g_u32_OFFOVS))
+	{
+		DIO_writepin(PWM_PIN1,HIGH);//
+		TCNT0=g_counter_offset_ON;
+	}
+	else if (OV==(g_u32_ONOVS+g_u32_OFFOVS))
+	{
+		DIO_writepin(PWM_PIN1,LOW);//
+		TCNT0=g_counter_offset_OFF;
+		OV=0;
+	}
+	
+}
+
+void PWM_Calac(u8 u8_DutyCycle,u32 u32_Freq)
+{ 
+	    u32 u32_wavePeriodTime = (1*Micro_seconds) /u32_Freq;		/* The Periodic Time for the Generated Pulse in Seconds */
+		u32 u32_waveONTime = (u32_wavePeriodTime*u8_DutyCycle) / 100;		/* The HIGH Level Time in Seconds */
+		u32 u32_waveOFFTime = u32_wavePeriodTime - u32_waveONTime;		   /* The LOW Level Time in Seconds */ 
+		
+		LCD_SetCursor(1,0);
+		
+// 		LCD_WriteNumber(u32_wavePeriodTime);
+//  		LCD_WriteString("--");
+// 		LCD_WriteNumber(u32_waveONTime);
+// 		 LCD_WriteString("--");
+// 		LCD_WriteNumber(u32_waveOFFTime);
+
+        u32 u32_oneTickTime = (u32) (((u32)(PWM_PRESCALER*Micro_seconds)/(u32)F_CPU)); 
+	 	f32 u32_max_time = (TIMER0_COUNTER_SIZE*u32_oneTickTime); 
+//	    LCD_SetCursor(1,0);
+// 		LCD_WriteNumber(u32_max_time); 
+     if (u32_waveONTime>=u32_max_time)
+     {
+		 g_u32_ONOVS     =  u32_waveONTime/(u32_max_time);  
+     } 
+	 else
+	 {
+    	g_u32_ONOVS= 1;
+		g_u32_ONTicks=(((factor *u32_waveONTime)/u32_max_time)*TIMER0_COUNTER_SIZE)/factor ;
+		 g_counter_offset_ON =TIMER0_COUNTER_SIZE-g_u32_ONTicks;
+	 }
+         if (u32_waveOFFTime>=u32_max_time)
+         {
+	        g_u32_OFFOVS    =  u32_waveOFFTime/(u32_max_time);
+			
+         } 
+		 
+		 	 else
+		 	 {
+			 	 g_u32_OFFOVS=1;
+				 g_u32_OFFTicks= (((factor *u32_waveOFFTime)/u32_max_time)*TIMER0_COUNTER_SIZE)/factor ;
+				 g_counter_offset_OFF =TIMER0_COUNTER_SIZE-g_u32_OFFTicks;
+				
+		 	 }
+     
+	// LCD_SetCursor(1,0);
+	 LCD_WriteNumber(g_counter_offset_ON) ;
+	 LCD_WriteNumber(g_counter_offset_OFF) ;
+	  
+	  DIO_writepin(PWM_PIN1,LOW);
+	  TCNT0=g_counter_offset_OFF;
+	 // timer_start(TIMER0_SCALER_8);
+
+} 
+
+
+void PWM_Multi_G()
+{
+	static u32 OV=0;
+	OV++;
+	TCNT0=6;
+	if (OV%20==0)
+	{
+		DIO_togglepin(PWM_PIN1);
+		
+	}
+	if (OV%40==0)
+	{
+		
+		DIO_togglepin(PWM_PIN2);
+		
+		
+	}
+	if (OV%100==0)
+	{
+		DIO_togglepin(PWM_PIN3);
+		
+	
+		
+	}
+		if (OV==200)
+		{	
+			OV=0;
+			
+		}
+}
