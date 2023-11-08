@@ -1,0 +1,3 @@
+../Src/MCAL/RCC/RCC_program.c:9:6:RCC_voidInitSysClock	4	static
+../Src/MCAL/RCC/RCC_program.c:62:6:RCC_voidEnableClock	16	static
+../Src/MCAL/RCC/RCC_program.c:82:6:RCC_voidDisableClock	16	static

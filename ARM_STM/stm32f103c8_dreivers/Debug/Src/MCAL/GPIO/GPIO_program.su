@@ -1,0 +1,5 @@
+../Src/MCAL/GPIO/GPIO_program.c:262:7:GPIO_voidSetPinDirection	24	static
+../Src/MCAL/GPIO/GPIO_program.c:323:6:GPIO_voidSetPinValue	24	static
+../Src/MCAL/GPIO/GPIO_program.c:376:4:GPIO_u8GetPinValue	24	static
+../Src/MCAL/GPIO/GPIO_program.c:411:7:GPIO_voidTogglePinValue	24	static
+../Src/MCAL/GPIO/GPIO_program.c:447:7:GPIO_voidSetPinPull	24	static

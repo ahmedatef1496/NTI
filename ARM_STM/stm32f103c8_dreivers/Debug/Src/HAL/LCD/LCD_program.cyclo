@@ -1,0 +1,17 @@
+../Src/HAL/LCD/LCD_program.c:7:13:_delay_ms	3
+../Src/HAL/LCD/LCD_program.c:169:13:WriteIns	1
+../Src/HAL/LCD/LCD_program.c:193:13:WriteData	1
+../Src/HAL/LCD/LCD_program.c:215:6:LCD_Init	1
+../Src/HAL/LCD/LCD_program.c:226:6:LCD_PinsInit	1
+../Src/HAL/LCD/LCD_program.c:241:6:LCD_WriteChar	1
+../Src/HAL/LCD/LCD_program.c:245:6:LCD_WriteString	2
+../Src/HAL/LCD/LCD_program.c:254:6:LCD_SetCursor	3
+../Src/HAL/LCD/LCD_program.c:265:6:LCD4_SetCursor	5
+../Src/HAL/LCD/LCD_program.c:284:6:LCD_Clear	1
+../Src/HAL/LCD/LCD_program.c:291:6:LCD_WriteNumber	5
+../Src/HAL/LCD/LCD_program.c:319:6:LCD_WriteBinary	2
+../Src/HAL/LCD/LCD_program.c:330:6:LCD_ClearLoc	2
+../Src/HAL/LCD/LCD_program.c:341:6:LCD4_ClearLoc	2
+../Src/HAL/LCD/LCD_program.c:352:6:LCD_WriteNumber_3D	1
+../Src/HAL/LCD/LCD_program.c:362:6:LCD_CustomChar	2
+../Src/HAL/LCD/LCD_program.c:374:9:LCD_DisplayFloat	3

@@ -1,0 +1,6 @@
+../Src/APP/app.c:12:6:main_init	8	static
+../Src/APP/app.c:26:6:NVIC_test	8	static
+../Src/APP/app.c:48:6:STK_TEST	8	static
+../Src/APP/app.c:60:6:TIMER	8	static
+../Src/APP/app.c:71:6:EXTI0_IRQHandler	8	static
+../Src/APP/app.c:81:6:EXTI1_IRQHandler	8	static

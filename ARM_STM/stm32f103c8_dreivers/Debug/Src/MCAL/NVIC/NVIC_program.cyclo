@@ -1,0 +1,8 @@
+../Src/MCAL/NVIC/NVIC_program.c:7:6:NVIC_init	1
+../Src/MCAL/NVIC/NVIC_program.c:14:6:NVIC_voidEnableInterrupt	3
+../Src/MCAL/NVIC/NVIC_program.c:33:6:NVIC_voidDisableInterrupt	3
+../Src/MCAL/NVIC/NVIC_program.c:52:6:NVIC_voidSetPendingFlag	3
+../Src/MCAL/NVIC/NVIC_program.c:71:6:NVIC_voidClearPendingFlag	3
+../Src/MCAL/NVIC/NVIC_program.c:90:4:NVIC_u8GetActiveFlag	3
+../Src/MCAL/NVIC/NVIC_program.c:111:7:NVIC_voidSetIntPriority	2
+../Src/MCAL/NVIC/NVIC_program.c:130:6:NVIC_voidSetIntPriority2	2
